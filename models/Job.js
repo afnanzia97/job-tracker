@@ -5,7 +5,11 @@ const jobSchema = new mongoose.Schema({
   role: { type: String, required: true },
   status: { type: String, default: 'saved' },
   link: String,
-  notes: String
+  notes: String,
+  deadline: Date,
+  jobType: { type: String, default: 'graduate-scheme' },
+  location: String,
+  source: String
 }, { timestamps: true });
 
 module.exports = mongoose.model('Job', jobSchema);
