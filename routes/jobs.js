@@ -9,7 +9,7 @@ router.post('/', async (req, res) => {
 }); 
 
 router.get('/', async (req, res) => {
-  const jobs = await Job.find();
+  const jobs = await Job.find().sort({deadline: 1, createdAt: -1});
   res.json(jobs);
 });
 
