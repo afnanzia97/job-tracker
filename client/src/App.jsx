@@ -4,6 +4,7 @@ function App() {
   const [jobs, setJobs] = useState([]);
   const [company, setCompany] = useState('');
   const [role, setRole] = useState('');
+  const [deadline, setDeadline] = useState('');
   
   useEffect(() => {
   fetch('http://localhost:5000/api/jobs')
@@ -12,16 +13,18 @@ function App() {
 }, []);
 
 const addJob = () => {
+  if (!company || !role) return;
   fetch('http://localhost:5000/api/jobs', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ company, role })
+    body: JSON.stringify({ company, role, deadline })
   })
     .then((res) => res.json())
     .then((newJob) => {
       setJobs([...jobs, newJob]);
       setCompany('');
       setRole('');
+      setDeadline('');
     });
 };
  const deleteJob = (id) => {
@@ -43,7 +46,7 @@ const addJob = () => {
     <div>
       <h1>Job Tracker</h1>
       <input
-       value={company}
+      value={company}
       onChange={(e) => setCompany(e.target.value)}
       placeholder="Company"
       />
@@ -53,22 +56,28 @@ const addJob = () => {
       onChange={(e) => setRole(e.target.value)}
       placeholder="Role"
       />
-            {jobs.map((job) => (
-        <li key={job._id}>
-     {job.company} - {job.role}
-     <button onClick={() => deleteJob(job._id)}>Delete</button>
-     <select
-  value={job.status}
-  onChange={(e) => updateStatus(job._id, e.target.value)}
->
-  <option value="saved">Saved</option>
-  <option value="applied">Applied</option>
-  <option value="interview">Interview</option>
-  <option value="rejected">Rejected</option>
-</select>
-     </li>
+      <input
+      type="date"
+      value={deadline}
+      onChange={(e) => setDeadline(e.target.value)}
+      /> 
+      <p>My Applications</p>
+      {jobs.map((job) => (
+      <li key={job._id}>
+  <strong>{job.company}</strong> - {job.role}
+  {job.deadline && <span> | Due: {job.deadline.slice(0, 10)}</span>}
+  <select
+    value={job.status}
+    onChange={(e) => updateStatus(job._id, e.target.value)}
+  >
+    <option value="saved">Saved</option>
+    <option value="applied">Applied</option>
+    <option value="interview">Interview</option>
+    <option value="rejected">Rejected</option>
+  </select>
+  <button onClick={() => deleteJob(job._id)}>Delete</button>
+</li>
       ))}
-      <p>My applications</p>
       <button onClick={addJob}>Add job</button>
     </div>
   );
