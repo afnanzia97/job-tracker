@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+const API = 'https://job-tracker-whht.onrender.com';
 
 function App() {
   const [jobs, setJobs] = useState([]);
@@ -7,14 +8,14 @@ function App() {
   const [deadline, setDeadline] = useState('');
   
   useEffect(() => {
-  fetch('http://localhost:5000/api/jobs')
+  fetch(`${API}/api/jobs`)
     .then((res) => res.json())
     .then((data) => setJobs(data));
 }, []);
 
 const addJob = () => {
   if (!company || !role) return;
-  fetch('http://localhost:5000/api/jobs', {
+  fetch(`${API}/api/jobs`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ company, role, deadline })
@@ -28,11 +29,11 @@ const addJob = () => {
     });
 };
  const deleteJob = (id) => {
-  fetch(`http://localhost:5000/api/jobs/${id}`, { method: 'DELETE' })
+  fetch(`${API}/api/jobs/${id}`, { method: 'DELETE' })
     .then(() => setJobs(jobs.filter((job) => job._id !== id)));
 };
  const updateStatus = (id, newStatus) => {
-  fetch(`http://localhost:5000/api/jobs/${id}`, {
+  fetch(`${API}/api/jobs/${id}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ status: newStatus })
