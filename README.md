@@ -4,6 +4,8 @@ A full-stack app for tracking graduate job applications. Add roles with deadline
 
 **Live demo:** https://job-tracker-snowy-mu.vercel.app
 
+<img width="1877" height="845" alt="Image" src="https://github.com/user-attachments/assets/c945359b-242d-48fd-b221-86c34198eccf" />
+
 Note: the backend runs on a free tier that sleeps when idle. The first load can take around 30 seconds.
 
 ## Why I built it
