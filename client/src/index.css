@@ -37,3 +37,6 @@ li {
 ul {
   padding: 0;
 }
+select {
+  margin-left: 10px;
+}
