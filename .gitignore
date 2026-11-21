@@ -1,3 +1,4 @@
 node_modules/
 .env
-practice.py
+__pycache__/
+practice.*
